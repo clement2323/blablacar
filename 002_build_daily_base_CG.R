@@ -14,7 +14,7 @@ library(ggplot2)
 folders<-dir("blablacar/base/ensemble des données extraites")[grep("^res_trips_",dir("blablacar/base/ensemble des données extraites"))]
 
 ## Ici: on ne garde que certaines variables par rapport aux requêtes initiales: peut être modifié
-traitement_data<-function(res){
+traitement_data<-function(res,f){
   #load("W:/Blablacar/base/ensemble des données extraites/res_trips_2018-05-25/1.Rdata")
   #res<-res[[10]] str(res$trips,1)
   od<-strsplit(strsplit(gsub("https://www.blablacar.fr/search?fn=","",res$links[[2]],fixed=T),'&db')[[1]],'&tn=')[[1]]
@@ -70,7 +70,7 @@ traitement_data<-function(res){
 
 base<-NULL
 
-list_fold<-sapply(folders,function(fold){
+list_fold<-lapply(folders,function(fold){
   #fold=folders[1]
   setwd("W:/blablacar/base/ensemble des données extraites")
   setwd(fold)
@@ -84,15 +84,15 @@ list_fold<-sapply(folders,function(fold){
     print(f)
     if(is.null(names(res))){
       tmp<-lapply((1:length(res)),function(i){
-        #i=14
+        #i=2
         #print(i)
-        return(traitement_data(res[[i]])[[2]])
+        return(traitement_data(res[[i]],f)[[2]])
       })
       # head(tmp[[1]])
       # head(tmp[[13]])
       r<-do.call(rbind,tmp)
     }else{
-      r<-traitement_data(res)[[2]]
+      r<-traitement_data(res,f)[[2]]
       #base<-rbind(base,r[[2]])
     }
     return(r)
@@ -103,3 +103,5 @@ list_fold<-sapply(folders,function(fold){
 })
 
 base<-do.call(rbind,list_fold)
+list_fold<-NULL
+save.image(file ="W:/Blablacar/git/base_from_25-05-2018_to_01-09-2018_augmente_CG.Rdata")

@@ -1,9 +1,11 @@
 
 library(data.table)
-load("C:/Users/Clement/Desktop/Partage_virtual_box/blablacar/dataset/base_from_25-05-2018_to_01-09-2018.Rdata")
-
+#load("C:/Users/Clement/Desktop/Partage_virtual_box/blablacar/dataset/base_from_25-05-2018_to_01-09-2018.Rdata")
+load("W:/Blablacar/git/base_from_25-05-2018_to_01-09-2018_augmente_CG.Rdata")
+#load(W:/Blablacar/base/base_from_25-05-2018_to_01-09-2018.Rdata")
 #table(b$departure_city_name)
 ##Transformation des prix en numérique
+
 b$price<-sapply(b$price,function(x){
   #x<-btest$price[1]
   as.numeric(sub(substr(x,(nchar(x)-1),nchar(x)),"",x))
