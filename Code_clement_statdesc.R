@@ -1,6 +1,6 @@
 rm(list=ls())
 gc()
-
+libraru(data.table)
 library(jsonlite)
 library(lubridate)
 library(ggplot2)
@@ -18,7 +18,9 @@ library(dplyr)
 #fichiers=list.files()
 # load("C:/Users/Clement/Desktop/blablacar/dataset/exemple_fichier_individuel_1.Rdata")
 # load("exemple_fichier_individuel_2.Rdata")
-load("C:/Users/Clement/Desktop/blablacar/dataset/base_from_25-05-2018_to_01-09-2018.Rdata")
+# load("C:/Users/Clement/Desktop/blablacar/dataset/base_from_25-05-2018_to_01-09-2018.Rdata")
+fread()
+
 getwd()
 head(b)
 dim(b)
