@@ -22,6 +22,41 @@ library(maptools)
 
 library("FactoMineR")
 library("factoextra")
+
+#TO DO 
+#Extirper les variables surpplémentaires des requêtes
+#à savoir, prix recommandé "recomanded price", pager_total qui va nous donner le nombre de voyage qu'on aurait pu avoir
+#avec une requête bien que la limite autorisée soit de 100
+#l'ordre aléatoire dans le requêtage du scrapping est volontaire car on ne veut pas enquêter un voyage à chaque fois à la même heure
+
+
+##Objectif, faire un  modèle de régression où le prix est expliqué par les variables de bablacar
+##Et un autre où les déterminants géographiques et les caractéristiques des chauffeurs jouent
+
+#Sur une carte faire apparaitre les flux les plus demandés dans notre base(suffit de faire des traits gros selon le nombre d'occurences)
+
+##Modèle de durée sur temps continu mais observation discrète à étudier pour omprendre le taux de remplissage
+##Tauix de remplissage qui nous aidera aussi pour le prix
+#survival analysis in discret time
+#Machine learning livre de thomas,elements of machine learning springer hastier
+
+#Demander un cluster aux informaticiens de l'ENSAE, les appeler pour avooir tot en réseau + la puissance de calcul  
+
+##Base IGN pur faire le lien entre les latitudes longitude et les depcom, ou y a lelr à coup de ctrl c ctrl v +lowcase
+##But avec les depcom on va pouvoir avoir ele tyoe de territoire de la ville de départ et d'arrivée ce qui va influer sur le prix (utilisation des aires urbaines)
+##Présence ou non de péage sur la route, ça doit forcmnt joué
+##En clair soit on essaie de récupérer ces informations liées au coupke origine trajet sur des sources externes,
+# Soit on s'amuse à mettre des dummies au pour chaque couple qui explqiuera l'effet fixe.
+#si trop de dummies on peut faire des couples départements départements
+#Question, quid des valeurs manquantes dans les modèles de régression??
+###Existe t'il des indicateurs d'accessibilité des communes ?
+
+##comprendre le prix recommandé, ce dernier est attaché à une requête 
+##Mais peut-être que ce prix recommandé évolue au cours du temps ? selon quels facteurs ?
+##Faire un modèle utilisant ce prix (ce sera le modèle utilisant les variables de blablacar)
+
+##A combien de temps une  offre apparait-elle en moyenne avant  de sa date de départ ??
+
 # base<-fread(input="C:/Users/Clement/Desktop/blablacar/dataset/base_from_25-05-2018_to_01-09-2018_augmente_et_nettoye.csv",sep=","
 #       ,stringsAsFactors = FALSE
 #       ,colClasses = list(charater=c("requete_id","departure_dates","price_color","permanent_id","departure_city_name","arrival_city_name","model","make","id","comfort",
@@ -197,7 +232,7 @@ return(r)
   # Mean    0.06414469 0.064435397 0.065538621 0.064512101 0.064489550
   # 3rd Qu. 0.06711409 0.066869301 0.069030040 0.068181818 0.067307692
   # Max.    0.38596491 0.617647059 0.333333333 0.401459854 0.258620690
-
+# unique(b_niveau_voyage$make)
 sapply(split(b_niveau_voyage,b_niveau_voyage$booking_mode),function(x){summary(x$price_per_dist)})
 # auto    manual
 # Min.      1.00000   1.00000
